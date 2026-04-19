@@ -1,83 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Message Jar 💌</title>
-  <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      padding: 50px;
-      background-color: #fff5f7;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      background-color: #ff6b81;
-      color: white;
-      cursor: pointer;
-    }
-    #message {
-      margin-top: 30px;
-      font-size: 20px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Jar 💌</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", sans-serif;
+  background: linear-gradient(to bottom, #fff1f5, #ffe4ec);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* App container */
+.container {
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  width: 300px;
+}
+
+/* Title */
+h1 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 20px;
+}
+
+/* Jar */
+.jar {
+  width: 120px;
+  height: 140px;
+  margin: 0 auto 20px;
+  background: #ffd6e0;
+  border-radius: 60px 60px 30px 30px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.jar:hover {
+  transform: scale(1.05);
+}
+
+.lid {
+  width: 130px;
+  height: 25px;
+  background: #ff8fab;
+  border-radius: 10px;
+  position: absolute;
+  top: -20px;
+  left: -5px;
+}
+
+/* Message box */
+#message {
+  margin-top: 20px;
+  font-size: 16px;
+  min-height: 50px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Button */
+button {
+  margin-top: 15px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 15px;
+  background: #ff6b81;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ff4d6d;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #ff6b81;
+  transform: rotate(45deg);
+  animation: float 6s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #ff6b81;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -7px;
+  left: 0;
+}
+
+.heart::after {
+  left: -7px;
+  top: 0;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-800px) rotate(45deg);
+    opacity: 0;
+  }
+}
+</style>
 </head>
+
 <body>
 
-<h1>Your Daily Message 💕</h1>
-<button onclick="getMessage()">Open Today's Message</button>
-<p id="message"></p>
+<div class="container">
+  <h1>💌 Your Message Jar</h1>
+  <div class="subtitle">Open one each day</div>
+
+  <div class="jar" onclick="getMessage()">
+    <div class="lid"></div>
+  </div>
+
+  <button onclick="getMessage()">Open Today’s Message</button>
+
+  <div id="message"></div>
+</div>
 
 <script>
 const messages = [
-  "I love you more than yesterday 💕",
-  "You make my life brighter ☀️",
-  "I'm so proud of you 💫",
-  "You’re my favorite person 💖",
-  "Thinking about you always 🫶",
-  // add up to 50 messages here
+  "Hi lol im so proud of you, you bring me so much joy and never fail to make me smile!",
+  "Hi pumpkin, I hope this code is working lollll. I hope you have an amazing day! You are amazing ♥️",
+  "Hi husband! I feel so lucky I get to be your wife, I hit the jackpot.  ",
+  "You’re my favorite person.",
+  "Thinking about you always, sweetheart",
+  "Hi lol. You make the quiet and mundane moments, beautiful. Thank you",
+  "I can express how excited I get when i see your name appear on my phone, or get to talk to you even for a few moments (: hehe " ,
+  "You are the diddy to my blud",
+  "I admire so much how dedicated and persitent you are. You inspire me to work harder, and not let things run me over.",
+  "Im so grateful for you.",
+  "I like to carry you with me while doing all the simple, and hard, tasks.",
+  "IM CHEERING YOU ON YOU ARE THE BEST",
+  "I like who I am when I am with you.",
+  "Hi baby. I heart you.",
+  "I love listening to you talk and think, you are so intelligent sweet boy",
+  "thank you for treating me with so much respect and kindness. it means more to me than I could ever convey", 
+  "Lol lets make out and stuff lol lol",
+  "I cant wait to see you continue to do so many amazing and impressive things. Im so proud of you",
+  "You are remarkably beautiful, my love",
+  "I cant wait to hold you and love on you hehe. Soon!!!",
+  "Hi lovey, I hope you have an amazing day. Im so thankful for you and proud of you!",
+  "We are two fat seals slapping our bellies cus wea are cute and happy.",
+  "We are also two strong and graceful deer because we are strong and graaceful!",
+  "I notice how hard you work at the gym, you are so so so strong and your muscles look so good hehehehe (:",
+  "I cant wait to give you so many kisses and hugs!",
+  "i love us, were so cool an cute',
+  "you make me feel a lot less heavy and bring me a lot of light. thank you for that baby",
+  "you are my favorite part of most days hehe" ,
+  "you dont have to prove anyhting, im so proud of you for just existing and beign who you are.",
+  "im here for you whevnever you need me",
+  "i trust you, and that is not a small thing for me",
+  "i will make you protein slop pancakes ♥️",
+  "hi i have a crush on you",
+  "they (evelyn) would love you in pakistan (chapel hill, nc)" ,
+  "you make me laugh so hard thank you ",
+  "boyfriend.",
+  "i feel like i knw you when we were kids and that a strange and special feeling for me",
+  "i used to blow out birthday candles hoping for someone liek you in my life",
+  "i really want to grow old with you and get wrinkly with you",
+  "hope your day is going well, im sending you love!',
+  "i love being yours",
+  "sighhhhh padme and anakin sighhhh halloween costume sighhhh makeout sighhhhhh",
+  "you matter a lot to me",
+  "i like the team we are and how we support each other",
+  "thank you for being so communicative with me baby, that is so important to me and im so thankful",
+  "i love how you listen and understand me",
+  "i hope you are getting rest and taking good care of yourself",
+  "you have become a part of my routine, like a happy vitamin hehe and i really love it",
+  "you make me calm and happy . im so thankful for you",
+  "i like like like like like you",
+  "i wish you were here",
+  "hey im gonna kiss you okay lol",
+  "i want to go on every date possible with you and love every moment!",
+  "i love when you tell me about the things you are passionate about and know a lot about. so hot hehe",
+  "you are so hot and handsome and sexyRAHHHH",
+  "were gonna get married and dance to across the stars ok",
+  "youre adorable i like you so much",
+  "i really love when you are patient and explain things to me i dont know",
+  "can i um can uh can i go uh lol hehe can i sleep with you.. sexually lol or whatevr",
+  "im cheering you on, you are amazing!",
+  "cant wait to be rich and buy you darth vader's armor heh",
+  "heart heart heart heart heart heart heart heart heart heart heart heart",
+  "omg. i get too see you so soon im so so sos sos  excited!",
+  "you have brought me so much hapiness, thank you beautiful, beautiful boy.",
+  "i would love to own animals with you, read with you, travel with you, watch movies with you. everything!",
+  "HI LOL its almost time omg. i cant wait to see you sweetheart. We are going to have such a lovely time"
+  "Hi lol. I love you, James." 
+  
 ];
 
-// Get today's date as a number
+// Day calculation
 function getDayNumber() {
-  const start = new Date("2026-01-01"); // choose a start date
+  const start = new Date("2026-04-20");
   const today = new Date();
-  const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
-  return diff;
+  return Math.floor((today - start) / (1000 * 60 * 60 * 24));
 }
 
 function getMessage() {
   const day = getDayNumber();
+  const messageBox = document.getElementById("message");
 
   if (day < 0) {
-    document.getElementById("message").innerText = "Not unlocked yet!";
+    messageBox.innerText = "Not unlocked yet 💌";
+    messageBox.style.opacity = 1;
     return;
   }
 
   if (day >= messages.length) {
-    document.getElementById("message").innerText = "You've read all the messages 💌";
+    messageBox.innerText = "You’ve read all my messages ♥️";
+    messageBox.style.opacity = 1;
     return;
   }
 
-  // Check if already opened today
-  const lastOpened = localStorage.getItem("lastOpenedDay");
+ const lastOpened = localStorage.getItem("lastOpenedDay");
 
-  if (lastOpened == day) {
-    document.getElementById("message").innerText = "You've already opened today's message 💕";
+if (lastOpened !== null && Number(lastOpened) >= day) {
+    messageBox.innerText = "Come back tomorrow (:";
+    messageBox.style.opacity = 1;
     return;
-  }
+}
 
-  // Show message
-  document.getElementById("message").innerText = messages[day];
+  messageBox.innerText = messages[day];
+  messageBox.style.opacity = 1;
 
-  // Save that today’s message has been opened
   localStorage.setItem("lastOpenedDay", day);
+
+  createHearts();
+}
+
+// Heart animation
+function createHearts() {
+  for (let i = 0; i < 10; i++) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }
 }
 </script>
 
 </body>
 </html>
-
