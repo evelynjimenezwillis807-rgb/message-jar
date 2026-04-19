@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Message Jar 💌</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 50px;
+      background-color: #fff5f7;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff6b81;
+      color: white;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Your Daily Message 💕</h1>
+<button onclick="getMessage()">Open Today's Message</button>
+<p id="message"></p>
+
+<script>
+const messages = [
+  "I love you more than yesterday 💕",
+  "You make my life brighter ☀️",
+  "I'm so proud of you 💫",
+  "You’re my favorite person 💖",
+  "Thinking about you always 🫶",
+  // add up to 50 messages here
+];
+
+// Get today's date as a number
+function getDayNumber() {
+  const start = new Date("2026-01-01"); // choose a start date
+  const today = new Date();
+  const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+  return diff;
+}
+
+function getMessage() {
+  const day = getDayNumber();
+
+  if (day < 0) {
+    document.getElementById("message").innerText = "Not unlocked yet!";
+    return;
+  }
+
+  if (day >= messages.length) {
+    document.getElementById("message").innerText = "You've read all the messages 💌";
+    return;
+  }
+
+  // Check if already opened today
+  const lastOpened = localStorage.getItem("lastOpenedDay");
+
+  if (lastOpened == day) {
+    document.getElementById("message").innerText = "You've already opened today's message 💕";
+    return;
+  }
+
+  // Show message
+  document.getElementById("message").innerText = messages[day];
+
+  // Save that today’s message has been opened
+  localStorage.setItem("lastOpenedDay", day);
+}
+</script>
+
+</body>
+</html>
+
